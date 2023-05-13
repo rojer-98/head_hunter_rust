@@ -6,6 +6,12 @@ use self::helpers::{deserialize_url, serialize_url};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
+pub struct Vacancies {
+    pub items: Vec<Vacancy>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
 pub struct Vacancy {
     pub accept_handicapped: bool,
     pub accept_incomplete_resumes: bool,

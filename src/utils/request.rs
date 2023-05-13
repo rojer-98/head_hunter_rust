@@ -21,10 +21,12 @@ pub enum RequestType {
     All,
 }
 
+#[allow(non_camel_case_types)]
 #[derive(Debug, Clone, Copy)]
 #[allow(dead_code)]
 pub enum Header {
     JSON,
+    USER_AGENT,
 }
 
 impl Header {
@@ -33,6 +35,7 @@ impl Header {
 
         match self {
             JSON => "Content-Type: application/json",
+            USER_AGENT => "User-Agent: api-test-agent",
         }
     }
 }
@@ -95,7 +98,7 @@ pub async fn request(
     }
 }
 
-pub async fn r_curl(
+async fn r_curl(
     url: String,
     params: Option<String>,
     auth: (Option<String>, Option<String>),
@@ -148,7 +151,7 @@ pub async fn r_curl(
     Ok(String::from_utf8(output).map_err(|source| HError::Utf8 { source })?)
 }
 
-pub async fn r_reqwest(
+async fn r_reqwest(
     url: String,
     params: Option<String>,
     auth: (Option<String>, Option<String>),
@@ -180,6 +183,7 @@ pub async fn r_reqwest(
         for h in h_s {
             rb_h = match h {
                 Header::JSON => rb_h.header(reqwest::header::CONTENT_TYPE, "application/json"),
+                Header::USER_AGENT => rb_h.header(reqwest::header::USER_AGENT, "api-test-agent"),
             };
         }
 
