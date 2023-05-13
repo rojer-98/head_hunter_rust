@@ -1,6 +1,7 @@
 use std::env;
 use std::fs::read_to_string;
 
+use log::info;
 use serde_json::from_str;
 use tokio::runtime::Builder;
 
@@ -13,7 +14,7 @@ fn test_vacancy_deserialize() {
 
     let vacancy_ser: Vacancy = from_str(&vacancy_file).unwrap();
 
-    println!("{:?}", vacancy_ser);
+    info!("{:?}", vacancy_ser);
 
     assert_eq!(1, 1);
 }
@@ -24,9 +25,9 @@ fn test_get_all_vacancies() {
         .enable_all()
         .build()
         .unwrap()
-        .block_on(async { get_all_vacancies().await });
+        .block_on(async { get_all_vacancies().await }).unwrap();
 
-    println!("{:?}", all_v);
+    info!("{:?}", all_v);
 
-    assert_eq!(1, 1)
+    assert_eq!(1, 1);
 }
