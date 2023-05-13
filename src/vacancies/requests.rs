@@ -17,7 +17,5 @@ pub async fn get_all_vacancies() -> Result<Vacancies, HError> {
     )
     .await?;
 
-    println!("Req is: {:?}", req);
-
     Ok(from_str::<Vacancies>(&req)?)
 }
