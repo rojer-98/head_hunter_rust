@@ -13,12 +13,12 @@ pub struct Vacancies {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub struct Vacancy {
-    pub accept_handicapped: bool,
-    pub accept_incomplete_resumes: bool,
-    pub accept_kids: bool,
-    pub accept_temporary: bool,
-    pub address: Address,
-    pub allow_messages: bool,
+    pub accept_handicapped: Option<bool>,
+    pub accept_incomplete_resumes: Option<bool>,
+    pub accept_kids: Option<bool>,
+    pub accept_temporary: Option<bool>,
+    pub address: Option<Address>,
+    pub allow_messages: Option<bool>,
     #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
     pub alternate_url: Option<Url>,
     #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
@@ -26,52 +26,52 @@ pub struct Vacancy {
     pub archived: bool,
     pub area: Area,
 
-    pub billing_type: IdAndName,
-    pub branded_description: String,
+    pub billing_type: Option<IdAndName>,
+    pub branded_description: Option<Option<String>>,
 
-    pub code: String,
-    pub contacts: Contacts,
+    pub code: Option<Option<String>>,
+    pub contacts: Option<Contacts>,
     pub created_at: DateTime<Utc>,
 
-    pub department: IdAndName,
-    pub description: String,
-    pub driver_license_types: Vec<DriverLicenseType>,
+    pub department: Option<IdAndName>,
+    pub description: Option<Option<String>>,
+    pub driver_license_types: Option<Vec<DriverLicenseType>>,
 
-    pub employer: Employer,
-    pub employment: IdAndName,
-    pub experience: IdAndName,
+    pub employer: Option<Employer>,
+    pub employment: Option<IdAndName>,
+    pub experience: Option<IdAndName>,
 
-    pub has_test: bool,
+    pub has_test: Option<bool>,
 
-    pub id: String,
-    pub initial_created_at: DateTime<Utc>,
-    pub insider_interview: InsiderInterview,
-    pub key_skills: Vec<KeySkill>,
+    pub id: Option<String>,
+    pub initial_created_at: Option<DateTime<Utc>>,
+    pub insider_interview: Option<InsiderInterview>,
+    pub key_skills: Option<Vec<KeySkill>>,
 
-    pub languages: Vec<Language>,
+    pub languages: Option<Vec<Language>>,
 
-    pub name: String,
+    pub name: Option<String>,
 
     pub premium: bool,
 
-    pub professional_roles: Vec<IdAndName>,
+    pub professional_roles: Vec<Option<IdAndName>>,
     pub published_at: DateTime<Utc>,
 
     pub response_letter_required: bool,
     #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
     pub response_url: Option<Url>,
 
-    pub salary: Salary,
-    pub schedule: IdAndName,
-    pub specializations: Vec<Option<String>>,
+    pub salary: Option<Salary>,
+    pub schedule: Option<IdAndName>,
+    pub specializations: Option<Vec<Option<Option<String>>>>,
 
-    pub test: Test,
+    pub test: Option<Test>,
     #[serde(rename = "type")]
-    pub _type: IdAndName,
+    pub _type: Option<IdAndName>,
 
-    pub working_days: Vec<IdAndName>,
-    pub working_time_intervals: Vec<IdAndName>,
-    pub working_time_modes: Vec<IdAndName>,
+    pub working_days: Vec<Option<IdAndName>>,
+    pub working_time_intervals: Vec<Option<IdAndName>>,
+    pub working_time_modes: Vec<Option<IdAndName>>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -83,7 +83,7 @@ pub struct Test {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub struct Salary {
-    pub currency: String,
+    pub currency: Option<String>,
     pub from: Option<u32>,
     pub gross: bool,
     pub to: Option<u32>,
@@ -92,21 +92,21 @@ pub struct Salary {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub struct Language {
-    pub id: String,
-    pub level: IdAndName,
-    pub name: String,
+    pub id: Option<String>,
+    pub level: Option<IdAndName>,
+    pub name: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub struct KeySkill {
-    pub name: String,
+    pub name: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub struct InsiderInterview {
-    pub id: String,
+    pub id: Option<String>,
     #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
     pub url: Option<Url>,
 }
@@ -129,10 +129,10 @@ pub struct LogoUrls {
 pub struct Employer {
     #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
     pub alternate_url: Option<Url>,
-    pub blacklisted: bool,
-    pub id: String,
-    pub logo_urls: LogoUrls,
-    pub name: String,
+    pub blacklisted: Option<bool>,
+    pub id: Option<String>,
+    pub logo_urls: Option<LogoUrls>,
+    pub name: Option<String>,
     pub trusted: bool,
     #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
     pub url: Option<Url>,
@@ -141,14 +141,14 @@ pub struct Employer {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub struct DriverLicenseType {
-    pub id: String,
+    pub id: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub struct Area {
-    pub id: String,
-    pub name: String,
+    pub id: Option<String>,
+    pub name: Option<String>,
     #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
     pub url: Option<Url>,
 }
@@ -156,48 +156,48 @@ pub struct Area {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub struct IdAndName {
-    pub id: String,
-    pub name: String,
+    pub id: Option<String>,
+    pub name: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub struct Contacts {
-    pub email: String,
-    pub name: String,
+    pub email: Option<String>,
+    pub name: Option<String>,
     pub phones: Vec<Phone>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub struct Phone {
-    pub city: String,
-    pub comment: Option<String>,
-    pub country: String,
-    pub number: String,
+    pub city: Option<String>,
+    pub comment: Option<Option<String>>,
+    pub country: Option<String>,
+    pub number: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub struct Address {
-    pub building: String,
-    pub city: String,
-    pub description: String,
+    pub building: Option<String>,
+    pub city: Option<String>,
+    pub description: Option<String>,
     pub lat: f64,
     pub lng: f64,
     pub metro_stations: Vec<MetroStation>,
-    pub street: String,
+    pub street: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub struct MetroStation {
     pub lat: f64,
-    pub line_id: String,
-    pub line_name: String,
+    pub line_id: Option<String>,
+    pub line_name: Option<String>,
     pub lng: f64,
-    pub station_id: String,
-    pub station_name: String,
+    pub station_id: Option<String>,
+    pub station_name: Option<String>,
 }
 
 mod helpers {
