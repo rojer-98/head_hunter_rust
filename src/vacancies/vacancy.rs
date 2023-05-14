@@ -85,8 +85,9 @@ pub struct Test {
 pub struct Salary {
     pub currency: Option<String>,
     pub from: Option<u32>,
-    pub gross: bool,
+    pub gross: Option<bool>,
     pub to: Option<u32>,
+    pub amount: Option<u32>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

@@ -56,19 +56,16 @@ fn test_get_vacancy_id() {
     assert_eq!(1, 1);
 }
 
-
 #[test]
-fn test_get_vacancy_id_visitors() {
+fn test_deserialize_vacancy_id_visitors() {
     init_logger();
 
-    let v_id = Builder::new_multi_thread()
-        .enable_all()
-        .build()
-        .unwrap()
-        .block_on(async { get_vacancy_id_visitors(79725422).await })
-        .unwrap();
+    let out_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
+    let visitors_file = read_to_string(format!("{out_dir}/data/visitors.json")).unwrap();
 
-    info!("Get vacancy id visitors is {:?}", v_id);
+    let v_id: Visitors = from_str(&visitors_file).unwrap();
+
+    info!("Visitors deserialize is {:?}", v_id);
 
     assert_eq!(1, 1);
 }
