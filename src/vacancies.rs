@@ -1,5 +1,7 @@
-mod data;
+mod vacancy;
+mod visitors;
 mod requests;
 
-pub use data::*;
+pub use vacancy::*;
+pub use visitors::*;
 pub use requests::*;

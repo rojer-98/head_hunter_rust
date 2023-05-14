@@ -39,3 +39,36 @@ fn test_get_all_vacancies() {
 
     assert_eq!(1, 1);
 }
+
+#[test]
+fn test_get_vacancy_id() {
+    init_logger();
+
+    let v_id = Builder::new_multi_thread()
+        .enable_all()
+        .build()
+        .unwrap()
+        .block_on(async { get_vacancy_id(79725422).await })
+        .unwrap();
+
+    info!("Get vacancy id is {:?}", v_id);
+
+    assert_eq!(1, 1);
+}
+
+
+#[test]
+fn test_get_vacancy_id_visitors() {
+    init_logger();
+
+    let v_id = Builder::new_multi_thread()
+        .enable_all()
+        .build()
+        .unwrap()
+        .block_on(async { get_vacancy_id_visitors(79725422).await })
+        .unwrap();
+
+    info!("Get vacancy id visitors is {:?}", v_id);
+
+    assert_eq!(1, 1);
+}

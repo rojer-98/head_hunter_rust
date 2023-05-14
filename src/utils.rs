@@ -1,5 +1,7 @@
-mod request;
 mod error;
+mod helpers;
+mod request;
 
-pub use request::*;
 pub use error::*;
+pub use helpers::*;
+pub use request::*;
