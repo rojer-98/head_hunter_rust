@@ -2,7 +2,7 @@ use digest::DigestAuth;
 use log::warn;
 use reqwest::Client;
 
-use crate::utils::HError;
+use crate::HError;
 
 #[derive(Debug, Clone, Copy)]
 #[allow(dead_code)]
