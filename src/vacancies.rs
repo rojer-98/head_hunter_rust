@@ -1,7 +1,9 @@
+mod queries;
+mod requests;
 mod vacancy;
 mod visitors;
-mod requests;
 
+pub use queries::*;
+pub use requests::*;
 pub use vacancy::*;
 pub use visitors::*;
-pub use requests::*;

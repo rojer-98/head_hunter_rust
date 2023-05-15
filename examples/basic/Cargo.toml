@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 hh_rust = { path = "../../" }
+tokio = { version = "1.28.1", features = ["full"] }
