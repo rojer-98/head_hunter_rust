@@ -25,53 +25,62 @@ pub struct Vacancy {
     pub apply_alternate_url: Option<Url>,
     pub archived: bool,
     pub area: Area,
-
     pub billing_type: Option<IdAndName>,
     pub branded_description: Option<Option<String>>,
-
     pub code: Option<Option<String>>,
     pub contacts: Option<Contacts>,
     pub created_at: DateTime<Utc>,
-
     pub department: Option<IdAndName>,
-    pub description: Option<Option<String>>,
+    pub description: Option<String>,
     pub driver_license_types: Option<Vec<DriverLicenseType>>,
-
     pub employer: Option<Employer>,
     pub employment: Option<IdAndName>,
     pub experience: Option<IdAndName>,
-
     pub has_test: Option<bool>,
-
     pub id: Option<String>,
     pub initial_created_at: Option<DateTime<Utc>>,
     pub insider_interview: Option<InsiderInterview>,
     pub key_skills: Option<Vec<KeySkill>>,
-
     pub languages: Option<Vec<Language>>,
-
     pub name: Option<String>,
-
     pub premium: bool,
-
     pub professional_roles: Vec<Option<IdAndName>>,
     pub published_at: DateTime<Utc>,
-
     pub response_letter_required: bool,
     #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
     pub response_url: Option<Url>,
-
+    pub request_id: Option<String>,
     pub salary: Option<Salary>,
     pub schedule: Option<IdAndName>,
     pub specializations: Option<Vec<Option<Option<String>>>>,
-
     pub test: Option<Test>,
     #[serde(rename = "type")]
     pub _type: Option<IdAndName>,
-
     pub working_days: Vec<Option<IdAndName>>,
     pub working_time_intervals: Vec<Option<IdAndName>>,
     pub working_time_modes: Vec<Option<IdAndName>>,
+    pub errors: Option<Vec<VacancyErrorInner>>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct VacancyError {
+    pub request_id: Option<String>,
+    pub description: Option<String>,
+    pub errors: Option<Vec<VacancyErrorInner>>,
+}
+
+impl Vacancy {
+    pub fn is_error(&self) -> bool {
+        self.errors.is_some() && self.request_id.is_some()
+    }
+
+    pub fn to_error(self) -> VacancyError {
+        VacancyError {
+            request_id: self.request_id,
+            description: self.description,
+            errors: self.errors,
+        }
+    }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -199,4 +208,15 @@ pub struct MetroStation {
     pub lng: f64,
     pub station_id: Option<String>,
     pub station_name: Option<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct VacancyErrorInner {
+    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
+    pub captcha_url: Option<Url>,
+    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
+    pub fallback_url: Option<Url>,
+    #[serde(rename = "type")]
+    pub error_type: String,
+    pub value: Option<String>,
 }
