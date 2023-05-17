@@ -1,4 +1,6 @@
-use hh_rust::vacancies::{get_all_vacancies, get_vacancy_id, VacanciesQuery};
+use hh_rust::{
+    vacancies::{get_all_vacancies, get_vacancy_id, VacanciesQuery},
+};
 
 use simple_logger::SimpleLogger;
 
@@ -24,5 +26,5 @@ async fn main() {
 
     if let Ok(v) = get_vacancy_id(80377829, None).await {
         println!("Name of specific vacancy is {}", v.name.unwrap());
-    }
+  } 
 }
