@@ -43,4 +43,6 @@ pub enum HError {
     NotSet,
     #[error("api is not supported")]
     NotAvialiableApi,
+    #[error("auth token cannot be convert")]
+    AuthTokenConvert,
 }
