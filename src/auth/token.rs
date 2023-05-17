@@ -29,7 +29,7 @@ pub struct BadToken {
 pub struct TokenError {
     #[serde(rename = "type")]
     pub error_type: String,
-    pub value: String,
+    pub value: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
