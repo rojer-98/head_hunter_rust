@@ -11,9 +11,9 @@ use crate::{
 #[serde(rename_all = "snake_case")]
 pub struct Visitors {
     pub found: i64,
-    
+
     pub hidden_on_page: i64,
-    
+
     pub items: Vec<Item>,
 
     pub page: i64,
