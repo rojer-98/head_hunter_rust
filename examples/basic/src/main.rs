@@ -1,7 +1,4 @@
-use hh_rust::{
-    auth::take_auth,
-    vacancies::{get_all_vacancies, get_vacancy_id, VacanciesQuery},
-};
+use hh_rust::vacancies::{get_all_vacancies, get_vacancy_id, VacanciesQuery};
 
 use simple_logger::SimpleLogger;
 
@@ -13,8 +10,6 @@ pub fn init_logger() {
 async fn main() {
     init_logger();
 
-    let auth = take_auth(None).await;
-    println!("Auth is {:?}", auth);
     let all_v_query = VacanciesQuery {
         page: Some(5),
         per_page: Some(20),
