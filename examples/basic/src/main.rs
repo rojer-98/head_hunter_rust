@@ -1,5 +1,5 @@
 use hh_rust::{
-    auth::{take_auth, TakeAuthQuery},
+    auth::take_auth,
     vacancies::{get_all_vacancies, get_vacancy_id, VacanciesQuery},
 };
 
@@ -15,7 +15,6 @@ async fn main() {
 
     let auth = take_auth(None).await;
     println!("Auth is {:?}", auth);
-    /*
     let all_v_query = VacanciesQuery {
         page: Some(5),
         per_page: Some(20),
@@ -31,5 +30,4 @@ async fn main() {
     if let Ok(v) = get_vacancy_id(80377829, None).await {
         println!("Name of specific vacancy is {}", v.name.unwrap());
     }
-    */
 }
