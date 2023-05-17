@@ -8,7 +8,7 @@ use crate::{
 };
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub enum GrantType {
+enum GrantType {
     #[serde(rename = "authorization_code")]
     AuthorizationCode,
     #[serde(rename = "refresh_token")]
