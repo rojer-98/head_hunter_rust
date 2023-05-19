@@ -51,4 +51,12 @@ pub struct VacancyQuery {
     pub host: Option<String>,
 }
 
-implement_query_handler!(VacancyQuery, VacanciesQuery);
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+pub struct VisitorsQuery {
+    pub page: Option<u32>,
+    pub per_page: Option<u32>,
+    pub locale: Option<String>,
+    pub host: Option<String>,
+}
+
+implement_query_handler!(VacancyQuery, VacanciesQuery, VisitorsQuery);
