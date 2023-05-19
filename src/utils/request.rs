@@ -204,3 +204,49 @@ async fn r_reqwest(
 
     Ok(rb.send().await?.text().await?)
 }
+
+#[macro_export]
+macro_rules! request_and_convert {
+    (url: $raw_url:expr, method: $method:ident, optional $query:ident, $out_type:ty) => {{
+        let url = if let Some(q) = $query {
+            let ser_q = q.into_query_string()?;
+            format!("{}?{}", $raw_url, ser_q)
+        } else {
+            $raw_url
+        };
+
+        let req = crate::utils::request(
+            crate::utils::RequestType::Reqwest,
+            url,
+            None,
+            (None, None),
+            crate::utils::AuthType::No,
+            crate::utils::Method::$method,
+            Some(vec![crate::utils::Header::USER_AGENT]),
+        )
+        .await?;
+
+        ::log::trace!("Req is {:?}", req);
+
+        Ok(::serde_json::from_str::<$out_type>(&req)?)
+    }};
+    (url: $raw_url:expr, method: $method:ident, $query:ident, $out_type:ty) => {{
+        let ser_q = $query.into_query_string()?;
+        let url = format!("{}?{}", $raw_url, ser_q);
+
+        let req = crate::utils::request(
+            crate::utils::RequestType::Reqwest,
+            url,
+            None,
+            (None, None),
+            crate::utils::AuthType::No,
+            crate::utils::Method::$method,
+            Some(vec![crate::utils::Header::USER_AGENT]),
+        )
+        .await?;
+
+        ::log::trace!("Req is {:?}", req);
+
+        Ok(::serde_json::from_str::<$out_type>(&req)?)
+    }};
+}
