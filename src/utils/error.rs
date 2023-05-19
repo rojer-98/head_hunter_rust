@@ -1,3 +1,4 @@
+use serde::{Deserialize, Serialize};
 use thiserror::*;
 
 #[derive(Error, Debug)]
@@ -45,4 +46,19 @@ pub enum HError {
     NotAvialiableApi,
     #[error("auth token cannot be convert")]
     AuthTokenConvert,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct RequestError {
+    pub request_id: Option<String>,
+    pub description: Option<String>,
+    pub errors: Option<Vec<RequestErrorInner>>,
+    pub oauth_error: Option<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct RequestErrorInner {
+    #[serde(rename = "type")]
+    pub error_type: Option<String>,
+    pub value: Option<String>,
 }
