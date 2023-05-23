@@ -3,7 +3,7 @@ use serde_url_params::to_string;
 
 use crate::{
     implement_query_handler,
-    utils::{deserialize_url, serialize_url, HError, Hosts, Locales, QueryHandler},
+    utils::{HError, Hosts, Locales, QueryHandler},
 };
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

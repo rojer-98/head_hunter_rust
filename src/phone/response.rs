@@ -1,10 +1,6 @@
 use serde::{Deserialize, Serialize};
-use serde_url_params::to_string;
 
-use crate::{
-    implement_query_handler,
-    utils::{deserialize_url, serialize_url, HError, Hosts, Locales, QueryHandler, RequestError},
-};
+use crate::utils::RequestError;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ResumePhone {

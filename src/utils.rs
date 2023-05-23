@@ -1,5 +1,5 @@
-mod error;
 mod dictionary;
+mod error;
 mod helpers;
 mod query_handler;
 mod request;
