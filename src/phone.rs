@@ -1,7 +1,9 @@
+mod body;
 mod queries;
 mod request;
-mod resumes;
+mod response;
 
+pub use body::*;
 pub use queries::*;
 pub use request::*;
-pub use resumes::*;
+pub use response::*;
