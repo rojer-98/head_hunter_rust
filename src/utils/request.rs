@@ -226,7 +226,7 @@ macro_rules! request_and_convert {
             crate::utils::RequestType::Reqwest,
             url,
             body,
-            (None, None),
+            (None, $access_token),
             crate::utils::AuthType::No,
             crate::utils::Method::$method,
             Some(vec![crate::utils::Header::USER_AGENT]),
@@ -244,8 +244,7 @@ macro_rules! request_and_convert {
         #[allow(unused_variables)]
         let body : Option<String> = None;
         $( let body = Some($body.into_query_string()?); )?
-
-
+      
         let req = crate::utils::request(
             crate::utils::RequestType::Reqwest,
             url,
