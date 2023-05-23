@@ -8,6 +8,7 @@ pub async fn get_all_vacancies(query: Option<VacanciesQuery>) -> Result<Vacancie
     request_and_convert!(
         url: format!("https://api.hh.ru/vacancies"),
         method: GET,
+        access_token: None,
         optional query,
         Vacancies
     )
@@ -20,6 +21,7 @@ pub async fn get_vacancy_id(
     request_and_convert!(
         url: format!("https://api.hh.ru/vacancies/{vacancy_id}"),
         method: GET,
+        access_token: None,
         optional query,
         Vacancy
     )
@@ -32,6 +34,7 @@ pub async fn get_vacancy_id_visitors(
     request_and_convert!(
         url: format!("https://api.hh.ru/vacancies/{vacancy_id}/visitors"),
         method: GET,
+        access_token: None,
         optional query,
         Visitors
     )

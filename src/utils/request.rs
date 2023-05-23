@@ -207,7 +207,7 @@ async fn r_reqwest(
 
 #[macro_export]
 macro_rules! request_and_convert {
-    (url: $raw_url:expr, method: $method:ident, optional $query:ident, $out_type:ty $(, optional $body:ident)?) => {{
+    (url: $raw_url:expr, method: $method:ident, access_token: $access_token:ident, optional $query:ident, $out_type:ty $(, optional $body:ident)?) => {{
         let url = if let Some(q) = $query {
             let ser_q = q.into_query_string()?;
             format!("{}?{}", $raw_url, ser_q)
@@ -226,7 +226,7 @@ macro_rules! request_and_convert {
             crate::utils::RequestType::Reqwest,
             url,
             body,
-            (None, None),
+            (None, $access_token),
             crate::utils::AuthType::No,
             crate::utils::Method::$method,
             Some(vec![crate::utils::Header::USER_AGENT]),
@@ -237,19 +237,19 @@ macro_rules! request_and_convert {
 
         Ok(::serde_json::from_str::<$out_type>(&req)?)
     }};
-    (url: $raw_url:expr, method: $method:ident, $query:ident, $out_type:ty $(, $body:ident)?) => {{
+    (url: $raw_url:expr, method: $method:ident, access_token: $access_token:ident, $query:ident, $out_type:ty $(, $body:ident)?) => {{
         let ser_q = $query.into_query_string()?;
         let url = format!("{}?{}", $raw_url, ser_q);
 
         #[allow(unused_variables)]
         let body : Option<String> = None;
         $( let body = Some($body.into_query_string()?); )?
-
+      
         let req = crate::utils::request(
             crate::utils::RequestType::Reqwest,
             url,
             body,
-            (None, None),
+            (None, $access_token),
             crate::utils::AuthType::No,
             crate::utils::Method::$method,
             Some(vec![crate::utils::Header::USER_AGENT]),

@@ -8,6 +8,7 @@ pub async fn get_auth<T: QueryHandler>(query: T) -> Result<Token, HError> {
     request_and_convert!(
         url: format!("https://api.hh.ru/oauth/token"),
         method: POST,
+        access_token: None,
         query,
         Token
     )
