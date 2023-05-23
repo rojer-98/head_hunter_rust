@@ -12,4 +12,9 @@ pub struct ResumePhoneConfirmBody {
     pub code: String,
 }
 
-implement_query_handler!(ResumePhoneConfirmBody);
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ResumePhoneGenerateCodeBody {
+    pub phone: String,
+}
+
+implement_query_handler!(ResumePhoneConfirmBody, ResumePhoneGenerateCodeBody);

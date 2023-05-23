@@ -1,11 +1,15 @@
 use crate::{
+    phone::{
+        PhoneConfirmQuery, ResumeGeneratedCode, ResumePhone, ResumePhoneConfirmBody,
+        ResumePhoneGenerateCodeBody, ResumeShouldSendSMSQuery,
+    },
     request_and_convert,
     utils::{HError, QueryHandler, RequestError},
 };
 
-pub async fn resume_phone_confirm<T: QueryHandler>(
-    query: T,
-    body: T,
+pub async fn resume_phone_confirm(
+    query: PhoneConfirmQuery,
+    body: ResumePhoneConfirmBody,
 ) -> Result<RequestError, HError> {
     request_and_convert!(
         url: "https://api.hh.ru/resume_phone_confirm",
@@ -16,15 +20,26 @@ pub async fn resume_phone_confirm<T: QueryHandler>(
     )
 }
 
-pub async fn resume_should_send_sms<T: QueryHandler>(
-    query: T,
-    body: T,
-) -> Result<RequestError, HError> {
+pub async fn resume_should_send_sms(
+    query: ResumeShouldSendSMSQuery,
+) -> Result<ResumePhone, HError> {
     request_and_convert!(
         url: "https://api.hh.ru/resume_should_send_sms",
         method: GET,
         query,
-        RequestError,
+        ResumePhone
+    )
+}
+
+pub async fn resume_phone_generate_code(
+    query: PhoneConfirmQuery,
+    body: ResumePhoneGenerateCodeBody,
+) -> Result<ResumeGeneratedCode, HError> {
+    request_and_convert!(
+        url: "https://api.hh.ru/resume_phone_generate_code",
+        method: POST,
+        query,
+        ResumeGeneratedCode,
         body
     )
 }
