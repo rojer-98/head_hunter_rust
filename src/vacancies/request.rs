@@ -28,13 +28,14 @@ pub async fn get_vacancy_id(
 }
 
 pub async fn get_vacancy_id_visitors(
+    access_token: Option<String>,
     vacancy_id: usize,
     query: Option<VisitorsQuery>,
 ) -> Result<Visitors, HError> {
     request_and_convert!(
         url: format!("https://api.hh.ru/vacancies/{vacancy_id}/visitors"),
         method: GET,
-        access_token: None,
+        access_token: access_token,
         optional query,
         Visitors
     )

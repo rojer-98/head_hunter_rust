@@ -1,6 +1,9 @@
 use serde::{Deserialize, Serialize};
 
-use crate::utils::RequestError;
+use crate::{
+    dictionary::{Actions, Download, Education, Experience, Gender, Platform, TotalExperience},
+    utils::RequestError,
+};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ResumeMine {
@@ -62,28 +65,6 @@ pub struct Access {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Gender {
-    pub id: Option<String>,
-    pub name: Option<String>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Actions {
-    pub download: Option<Download>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Download {
-    pub pdf: Option<Pdf>,
-    pub rtf: Option<Pdf>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Pdf {
-    pub url: Option<String>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Area {
     pub id: Option<String>,
     pub name: Option<String>,
@@ -110,26 +91,6 @@ pub struct ValueClass {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Education {
-    pub level: Option<Gender>,
-    pub primary: Option<Vec<Option<serde_json::Value>>>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Experience {
-    pub area: Option<Area>,
-    pub company: Option<String>,
-    pub company_id: Option<serde_json::Value>,
-    pub company_url: Option<String>,
-    pub employer: Option<serde_json::Value>,
-    pub end: Option<String>,
-    pub industries: Option<Vec<Option<serde_json::Value>>>,
-    pub industry: Option<Gender>,
-    pub position: Option<String>,
-    pub start: Option<String>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PaidService {
     pub active: Option<bool>,
     pub id: Option<String>,
@@ -150,11 +111,6 @@ pub struct Photo {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Platform {
-    pub id: Option<String>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Salary {
     pub amount: Option<i64>,
     pub currency: Option<String>,
@@ -169,11 +125,6 @@ pub struct SimilarVacancies {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Counters {
     pub total: Option<i64>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct TotalExperience {
-    pub months: Option<i64>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

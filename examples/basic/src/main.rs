@@ -10,13 +10,13 @@ pub fn init_logger() {
 async fn main() {
     init_logger();
 
-    let all_v_query = VacanciesQuery {
-        page: Some(5),
-        per_page: Some(20),
+    let all_v_query = Some(VacanciesQuery {
+        page: Some(3),
+        per_page: Some(10),
         ..Default::default()
-    };
+    });
 
-    if let Ok(all) = get_all_vacancies(Some(all_v_query)).await {
+    if let Ok(all) = get_all_vacancies(all_v_query).await {
         for v in all.items {
             println!("Name of vacancy is {}={}", v.id.unwrap(), v.name.unwrap());
         }

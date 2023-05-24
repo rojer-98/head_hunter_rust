@@ -1,6 +1,10 @@
 use serde::{Deserialize, Serialize};
+use url::Url;
 
-use crate::utils::RequestError;
+use crate::{
+    dictionary::LogoUrls,
+    utils::{deserialize_url, serialize_url, RequestError},
+};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ResumeViews {
@@ -23,24 +27,22 @@ pub struct ResumeViewsItem {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Employer {
-    pub alternate_url: Option<String>,
+    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
+    pub alternate_url: Option<Url>,
     pub id: Option<String>,
     pub logo_urls: Option<LogoUrls>,
     pub name: Option<String>,
-    pub url: Option<String>,
+    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
+    pub url: Option<Url>,
     pub vacancies_url: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct LogoUrls {
-    #[serde(rename = "90")]
-    pub the_90: Option<String>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Resume {
-    pub alternate_url: Option<String>,
+    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
+    pub alternate_url: Option<Url>,
     pub id: Option<String>,
     pub title: Option<String>,
-    pub url: Option<String>,
+    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
+    pub url: Option<Url>,
 }

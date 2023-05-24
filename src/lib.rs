@@ -5,3 +5,4 @@ pub mod resumes;
 pub mod auth;
 pub mod phone;
 pub mod vacancies;
+pub mod dictionary;
