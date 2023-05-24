@@ -10,7 +10,7 @@ pub struct ResumeStatus {
     pub moderation_note: Option<Vec<StatusModerationNote>>,
     pub progress: Option<StatusProgress>,
     pub publish_url: Option<String>,
-    pub status: Option<Status>,
+    pub status: Option<ResumeStatusInner>,
     #[serde(flatten)]
     pub error: Option<RequestError>,
 }
@@ -24,13 +24,13 @@ pub struct StatusModerationNote {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct StatusProgress {
-    pub mandatory: Option<Vec<Status>>,
+    pub mandatory: Option<Vec<ResumeStatusInner>>,
     pub percentage: Option<i64>,
-    pub recommended: Option<Vec<Status>>,
+    pub recommended: Option<Vec<ResumeStatusInner>>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Status {
+pub struct ResumeStatusInner {
     pub id: Option<String>,
     pub name: Option<String>,
 }

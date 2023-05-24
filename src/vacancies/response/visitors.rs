@@ -3,8 +3,10 @@ use serde::{Deserialize, Serialize};
 use url::Url;
 
 use crate::{
+    dictionary::{
+        Actions, Area, Download, Education, Experience, Gender, Platform, Salary, TotalExperience,
+    },
     utils::{deserialize_url, serialize_url},
-    vacancies::{Area, Salary},
 };
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -14,7 +16,7 @@ pub struct Visitors {
 
     pub hidden_on_page: i64,
 
-    pub items: Vec<Item>,
+    pub items: Vec<VisitorsItem>,
 
     pub page: i64,
     pub pages: i64,
@@ -23,7 +25,7 @@ pub struct Visitors {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
-pub struct Item {
+pub struct VisitorsItem {
     pub actions: Actions,
     pub age: i64,
     #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
@@ -72,113 +74,16 @@ pub struct Item {
     pub viewed: bool,
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub struct Actions {
-    pub download: Download,
-    pub download_with_contact: DownloadWithContact,
-
-    pub get_with_contact: GetWithContact,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub struct Download {
-    pub pdf: Pdf,
-    pub rtf: Rtf,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub struct Pdf {
-    pub url: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub struct Rtf {
-    pub url: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub struct DownloadWithContact {
-    pub pdf: Pdf,
-    pub rtf: Rtf,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub struct GetWithContact {
-    pub url: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub struct Education {
-    pub level: Level,
-    pub primary: Vec<Primary>,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub struct Level {
-    pub id: String,
-    pub name: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub struct Primary {
-    pub name: String,
-    pub name_id: Option<String>,
-    pub organization: String,
-    pub organization_id: Option<String>,
-    pub result: String,
-    pub result_id: Option<String>,
-    pub year: i64,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct NegotiationsHistory {
+    pub url: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
-pub struct Experience {
-    pub area: Area,
-    pub company: String,
-    pub company_id: String,
-    pub company_url: String,
-    pub employer: Option<String>,
-    pub end: String,
-    pub industries: Vec<Industry>,
-    pub industry: Industry,
-    pub position: String,
-    pub start: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub struct Industry {
-    pub id: String,
-    pub name: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub struct Gender {
-    pub id: String,
-    pub name: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub struct NegotiationsHistory {
-    pub url: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
 pub struct Owner {
-    pub comments: Comments,
-    pub id: String,
+    pub comments: Option<Comments>,
+    pub id: Option<String>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -192,16 +97,4 @@ pub struct Comments {
 #[serde(rename_all = "snake_case")]
 pub struct Counters {
     pub total: i64,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub struct Platform {
-    pub id: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub struct TotalExperience {
-    pub months: i64,
 }

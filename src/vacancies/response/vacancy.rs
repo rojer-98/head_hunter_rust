@@ -2,7 +2,10 @@ use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use url::Url;
 
-use crate::utils::{deserialize_url, serialize_url};
+use crate::{
+    dictionary::{Area, LogoUrls, Salary},
+    utils::{deserialize_url, serialize_url, RequestError},
+};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -59,7 +62,8 @@ pub struct Vacancy {
     pub working_days: Vec<Option<IdAndName>>,
     pub working_time_intervals: Vec<Option<IdAndName>>,
     pub working_time_modes: Vec<Option<IdAndName>>,
-    pub errors: Option<Vec<VacancyErrorInner>>,
+    #[serde(flatten)]
+    pub error: Option<RequestError>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -69,34 +73,10 @@ pub struct VacancyError {
     pub errors: Option<Vec<VacancyErrorInner>>,
 }
 
-impl Vacancy {
-    pub fn is_error(&self) -> bool {
-        self.errors.is_some() && self.request_id.is_some()
-    }
-
-    pub fn to_error(self) -> VacancyError {
-        VacancyError {
-            request_id: self.request_id,
-            description: self.description,
-            errors: self.errors,
-        }
-    }
-}
-
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub struct Test {
     pub required: bool,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub struct Salary {
-    pub currency: Option<String>,
-    pub from: Option<u32>,
-    pub gross: Option<bool>,
-    pub to: Option<u32>,
-    pub amount: Option<u32>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -123,19 +103,6 @@ pub struct InsiderInterview {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
-pub struct LogoUrls {
-    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
-    #[serde(rename = "90")]
-    pub _90: Option<Url>,
-    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
-    #[serde(rename = "240")]
-    pub _240: Option<Url>,
-    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
-    pub original: Option<Url>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
 pub struct Employer {
     #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
     pub alternate_url: Option<Url>,
@@ -152,15 +119,6 @@ pub struct Employer {
 #[serde(rename_all = "snake_case")]
 pub struct DriverLicenseType {
     pub id: Option<String>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub struct Area {
-    pub id: Option<String>,
-    pub name: Option<String>,
-    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
-    pub url: Option<Url>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
