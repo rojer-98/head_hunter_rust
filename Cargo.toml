@@ -27,5 +27,7 @@ thiserror = "*"
 regex = "1.8.1"
 log = "*"
 
+derive = { path = "./derive" }
+
 [dev-dependencies]
 simple_logger = "4.1.0"

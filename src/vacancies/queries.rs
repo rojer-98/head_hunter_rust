@@ -2,13 +2,14 @@ use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use serde_url_params::to_string;
 
+use derive::Query;
+
 use crate::{
     dictionary::{Hosts, Locales},
-    implement_query_handler,
-    utils::{HError, QueryHandler},
+    utils::{QueryHandler},
 };
 
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize, Default, Query)]
 pub struct VacanciesQuery {
     pub page: Option<u32>,
     pub per_page: Option<u32>,
@@ -46,18 +47,16 @@ pub struct VacanciesQuery {
     pub host: Option<String>,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize, Default, Query)]
 pub struct VacancyQuery {
     pub locale: Option<Locales>,
     pub host: Option<Hosts>,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize, Default, Query)]
 pub struct VisitorsQuery {
     pub page: Option<u32>,
     pub per_page: Option<u32>,
     pub locale: Option<String>,
     pub host: Option<String>,
 }
-
-implement_query_handler!(VacancyQuery, VacanciesQuery, VisitorsQuery);

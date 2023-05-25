@@ -2,10 +2,9 @@ use serde::{Deserialize, Serialize};
 use serde_url_params::to_string;
 use url::Url;
 
-use crate::{
-    implement_query_handler,
-    utils::{deserialize_url, serialize_url, HError, QueryHandler},
-};
+use derive::Query;
+
+use crate::utils::{deserialize_url, serialize_url, QueryHandler};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 enum GrantType {
@@ -17,7 +16,7 @@ enum GrantType {
     ClientCredentials,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, Query)]
 pub struct TakeAuthQuery {
     pub client_id: String,
     pub client_secret: String,
@@ -39,7 +38,7 @@ impl TakeAuthQuery {
     }
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, Query)]
 pub struct RefreshAuthQuery {
     grant_type: GrantType,
     pub refresh_token: String,
@@ -54,7 +53,7 @@ impl RefreshAuthQuery {
     }
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, Query)]
 pub struct TakeNewAuthQuery {
     pub client_id: String,
     pub client_secret: String,
@@ -70,5 +69,3 @@ impl TakeNewAuthQuery {
         }
     }
 }
-
-implement_query_handler!(RefreshAuthQuery, TakeAuthQuery, TakeNewAuthQuery);
