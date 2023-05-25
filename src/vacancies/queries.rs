@@ -6,7 +6,7 @@ use derive::Query;
 
 use crate::{
     dictionary::{Hosts, Locales},
-    utils::{HError, QueryHandler},
+    utils::{QueryHandler},
 };
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default, Query)]
