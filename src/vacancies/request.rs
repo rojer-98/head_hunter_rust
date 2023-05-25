@@ -1,9 +1,9 @@
+use std::fmt::Display;
+
 use crate::{
     request_and_convert,
     utils::{HError, QueryHandler, RequestError},
-    vacancies::{
-        Vacancies, VacanciesHidden, VacanciesQuery, Vacancy, VacancyQuery, Visitors, VisitorsQuery,
-    },
+    vacancies::{Vacancies, VacanciesQuery, Vacancy, VacancyQuery, Visitors, VisitorsQuery},
 };
 
 pub async fn get_all_vacancies(query: Option<VacanciesQuery>) -> Result<Vacancies, HError> {
@@ -16,8 +16,8 @@ pub async fn get_all_vacancies(query: Option<VacanciesQuery>) -> Result<Vacancie
     )
 }
 
-pub async fn get_vacancy_id(
-    vacancy_id: usize,
+pub async fn get_vacancy_id<T: Display>(
+    vacancy_id: T,
     query: Option<VacancyQuery>,
 ) -> Result<Vacancy, HError> {
     request_and_convert!(
@@ -29,9 +29,9 @@ pub async fn get_vacancy_id(
     )
 }
 
-pub async fn get_vacancy_id_visitors(
+pub async fn get_vacancy_id_visitors<T: Display>(
     access_token: Option<String>,
-    vacancy_id: usize,
+    vacancy_id: T,
     query: Option<VisitorsQuery>,
 ) -> Result<Visitors, HError> {
     request_and_convert!(
@@ -46,19 +46,19 @@ pub async fn get_vacancy_id_visitors(
 pub async fn get_blacklisted_vacancies(
     access_token: Option<String>,
     query: Option<VacancyQuery>,
-) -> Result<VacanciesHidden, HError> {
+) -> Result<Vacancies, HError> {
     request_and_convert!(
         url: format!("https://api.hh.ru/vacancies/blacklisted"),
         method: GET,
         access_token: access_token,
         optional query,
-        VacanciesHidden
+        Vacancies
     )
 }
 
-pub async fn put_to_blacklisted_vacancies(
+pub async fn put_to_blacklisted_vacancies<T: Display>(
     access_token: Option<String>,
-    vacancy_id: usize,
+    vacancy_id: T,
     query: Option<VacancyQuery>,
 ) -> Result<RequestError, HError> {
     request_and_convert!(
@@ -70,13 +70,54 @@ pub async fn put_to_blacklisted_vacancies(
     )
 }
 
-pub async fn delete_from_blacklisted_vacancies(
+pub async fn delete_from_blacklisted_vacancies<T: Display>(
     access_token: Option<String>,
-    vacancy_id: usize,
+    vacancy_id: T,
     query: Option<VacancyQuery>,
 ) -> Result<RequestError, HError> {
     request_and_convert!(
         url: format!("https://api.hh.ru/vacancies/blacklisted/{vacancy_id}"),
+        method: DELETE,
+        access_token: access_token,
+        optional query,
+        RequestError
+    )
+}
+
+pub async fn get_all_favorited_vacancies(
+    access_token: Option<String>,
+    query: Option<VisitorsQuery>,
+) -> Result<Vacancies, HError> {
+    request_and_convert!(
+        url: format!("https://api.hh.ru/vacancies/favorited"),
+        method: GET,
+        access_token: access_token,
+        optional query,
+        Vacancies
+    )
+}
+
+pub async fn put_to_favorited_vacancies<T: Display>(
+    access_token: Option<String>,
+    vacancy_id: T,
+    query: Option<VacancyQuery>,
+) -> Result<RequestError, HError> {
+    request_and_convert!(
+        url: format!("https://api.hh.ru/vacancies/favorited/{vacancy_id}"),
+        method: PUT,
+        access_token: access_token,
+        optional query,
+        RequestError
+    )
+}
+
+pub async fn delete_from_favorited_vacancies<T: Display>(
+    access_token: Option<String>,
+    vacancy_id: T,
+    query: Option<VacancyQuery>,
+) -> Result<RequestError, HError> {
+    request_and_convert!(
+        url: format!("https://api.hh.ru/vacancies/favorited/{vacancy_id}"),
         method: DELETE,
         access_token: access_token,
         optional query,

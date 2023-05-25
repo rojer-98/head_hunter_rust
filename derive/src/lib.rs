@@ -2,8 +2,10 @@ use proc_macro::TokenStream;
 
 use quote::quote;
 use syn;
+use proc_macro_error::proc_macro_error;
 
 #[proc_macro_derive(Query)]
+#[proc_macro_error]
 pub fn query_handler(input: TokenStream) -> TokenStream {
     impl_query_handler(&syn::parse(input).unwrap())
 }
