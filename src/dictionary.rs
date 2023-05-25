@@ -159,3 +159,10 @@ pub struct Industry {
     pub id: String,
     pub name: String,
 }
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub struct IdAndName {
+    pub id: Option<String>,
+    pub name: Option<String>,
+}

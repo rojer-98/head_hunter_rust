@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 use url::Url;
 
 use crate::{
-    dictionary::{Area, LogoUrls, Salary},
+    dictionary::{Area, IdAndName, LogoUrls, Salary},
     utils::{deserialize_url, serialize_url, RequestError},
 };
 
@@ -21,6 +21,8 @@ pub struct Vacancy {
     pub accept_kids: Option<bool>,
     pub accept_temporary: Option<bool>,
     pub address: Option<Address>,
+    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
+    pub adv_response_url: Option<Url>,
     pub allow_messages: Option<bool>,
     #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
     pub alternate_url: Option<Url>,
@@ -43,6 +45,8 @@ pub struct Vacancy {
     pub id: Option<String>,
     pub initial_created_at: Option<DateTime<Utc>>,
     pub insider_interview: Option<InsiderInterview>,
+    #[serde(rename = "type")]
+    pub item_type: Option<IdAndName>,
     pub key_skills: Option<Vec<KeySkill>>,
     pub languages: Option<Vec<Language>>,
     pub name: Option<String>,
@@ -53,9 +57,11 @@ pub struct Vacancy {
     #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
     pub response_url: Option<Url>,
     pub request_id: Option<String>,
+    pub relations: Option<Vec<String>>,
     pub salary: Option<Salary>,
     pub schedule: Option<IdAndName>,
     pub specializations: Option<Vec<Option<Option<String>>>>,
+    pub sort_point_distance: Option<String>,
     pub test: Option<Test>,
     #[serde(rename = "type")]
     pub _type: Option<IdAndName>,

@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 use serde_url_params::to_string;
 
 use crate::{
+    dictionary::{Hosts, Locales},
     implement_query_handler,
     utils::{HError, QueryHandler},
 };
@@ -47,8 +48,8 @@ pub struct VacanciesQuery {
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct VacancyQuery {
-    pub locale: Option<String>,
-    pub host: Option<String>,
+    pub locale: Option<Locales>,
+    pub host: Option<Hosts>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
