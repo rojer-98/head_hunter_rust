@@ -1,9 +1,9 @@
 mod error;
 mod helpers;
-mod query;
 mod request;
+mod traits;
 
 pub use error::*;
 pub use helpers::*;
-pub use query::*;
 pub use request::*;
+pub use traits::*;

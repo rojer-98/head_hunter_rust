@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 use serde::{Deserialize, Serialize};
 use thiserror::*;
 
@@ -48,7 +50,7 @@ pub enum HError {
     AuthTokenConvert,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, Error)]
 pub struct RequestError {
     pub request_id: Option<String>,
     pub description: Option<String>,
@@ -56,9 +58,31 @@ pub struct RequestError {
     pub oauth_error: Option<String>,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+impl RequestError {
+    pub fn is_error(&self) -> bool {
+        self.description.is_some() || self.errors.is_some() || self.oauth_error.is_some()
+    }
+}
+
+impl Display for RequestError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "Request id {:?}\nDescription: {:?}\nInners: {:?}",
+            self.request_id, self.description, self.errors
+        )
+    }
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, Error)]
 pub struct RequestErrorInner {
     #[serde(rename = "type")]
     pub error_type: Option<String>,
     pub value: Option<String>,
+}
+
+impl Display for RequestErrorInner {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{:?}: {:?}", self.error_type, self.value)
+    }
 }
