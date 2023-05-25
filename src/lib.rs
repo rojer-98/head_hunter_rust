@@ -1,8 +1,8 @@
 pub(crate) mod utils;
-pub use utils::HError;
+pub use utils::{HError, RequestError};
 
-pub mod resumes;
 pub mod auth;
-pub mod phone;
-pub mod vacancies;
 pub mod dictionary;
+pub mod phone;
+pub mod resumes;
+pub mod vacancies;

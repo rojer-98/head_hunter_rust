@@ -1,9 +1,9 @@
 mod error;
 mod helpers;
-mod query_handler;
+mod query;
 mod request;
 
 pub use error::*;
 pub use helpers::*;
-pub use query_handler::*;
+pub use query::*;
 pub use request::*;

@@ -1,20 +1,17 @@
 use serde::{Deserialize, Serialize};
 use serde_url_params::to_string;
 
-use crate::{
-    implement_query_handler,
-    utils::{HError, QueryHandler},
-};
+use derive::Query;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+use crate::utils::QueryHandler;
+
+#[derive(Debug, Clone, Serialize, Deserialize, Query)]
 pub struct ResumePhoneConfirmBody {
     pub phone: String,
     pub code: String,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, Query)]
 pub struct ResumePhoneGenerateCodeBody {
     pub phone: String,
 }
-
-implement_query_handler!(ResumePhoneConfirmBody, ResumePhoneGenerateCodeBody);
