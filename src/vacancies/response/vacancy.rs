@@ -10,7 +10,16 @@ use crate::{
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub struct Vacancies {
+    pub arguments: Option<String>,
+    pub clusters: Option<String>,
+    pub found: Option<i64>,
     pub items: Vec<Vacancy>,
+    pub limit_reached: Option<bool>,
+    pub page: Option<i64>,
+    pub pages: Option<i64>,
+    pub per_page: Option<i64>,
+    #[serde(flatten)]
+    pub error: Option<RequestError>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

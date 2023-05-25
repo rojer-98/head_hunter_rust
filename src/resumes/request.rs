@@ -1,12 +1,15 @@
+use std::fmt::Display;
+
 use crate::{
     request_and_convert,
     resumes::{ResumeMine, ResumeQuery, ResumeStatus, ResumeViews},
     utils::{HError, QueryHandler},
+    vacancies::{Vacancies, VacanciesQuery},
 };
 
-pub async fn get_resume_status(
+pub async fn get_resume_status<T: Display>(
     access_token: Option<String>,
-    resume_id: usize,
+    resume_id: T,
     query: Option<ResumeQuery>,
 ) -> Result<ResumeStatus, HError> {
     request_and_convert!(
@@ -31,8 +34,8 @@ pub async fn get_mine_resumes(
     )
 }
 
-pub async fn get_resumes_views(
-    resume_id: usize,
+pub async fn get_resumes_views<T: Display>(
+    resume_id: T,
     access_token: Option<String>,
     query: Option<ResumeQuery>,
 ) -> Result<ResumeViews, HError> {
@@ -42,5 +45,19 @@ pub async fn get_resumes_views(
         access_token: access_token,
         optional query,
         ResumeViews
+    )
+}
+
+pub async fn get_similar_vacancy_by_resume_id<T: Display>(
+    access_token: Option<String>,
+    resume_id: T,
+    query: Option<VacanciesQuery>,
+) -> Result<Vacancies, HError> {
+    request_and_convert!(
+        url: format!("https://api.hh.ru/resumes/{resume_id}/similar_vacancies"),
+        method: GET,
+        access_token: access_token,
+        optional query,
+        Vacancies
     )
 }

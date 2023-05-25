@@ -13,3 +13,10 @@ proc-macro = true
 [dependencies]
 syn = "2.0.16"
 quote = "1.0.27"
+proc-macro-error = "1.0"
+
+[profile.release]
+panic = 'abort'
+
+[profile.dev]
+panic = 'abort'
