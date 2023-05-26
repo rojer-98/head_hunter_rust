@@ -1,8 +1,10 @@
 use serde::{Deserialize, Serialize};
+use url::Url;
 
 use crate::{
     dictionary::{Actions, Download, Education, Experience, Gender, Platform, TotalExperience},
     utils::RequestError,
+    utils::{deserialize_url, serialize_url},
 };
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -21,7 +23,12 @@ pub struct ResumeMineItem {
     pub access: Option<Access>,
     pub actions: Option<Actions>,
     pub age: Option<i64>,
-    pub alternate_url: Option<String>,
+    #[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
+    pub alternate_url: Option<Url>,
     pub area: Option<Area>,
     pub blocked: Option<bool>,
     pub can_publish_or_update: Option<bool>,
@@ -53,8 +60,18 @@ pub struct ResumeMineItem {
     pub total_views: Option<i64>,
     pub updated: Option<String>,
     pub updated_at: Option<String>,
-    pub url: Option<String>,
-    pub views_url: Option<String>,
+    #[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
+    pub url: Option<Url>,
+    #[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
+    pub views_url: Option<Url>,
     pub visible: Option<bool>,
 }
 
@@ -68,7 +85,12 @@ pub struct Access {
 pub struct Area {
     pub id: Option<String>,
     pub name: Option<String>,
-    pub url: Option<String>,
+    #[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
+    pub url: Option<Url>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -119,7 +141,12 @@ pub struct Salary {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SimilarVacancies {
     pub counters: Option<Counters>,
-    pub url: Option<String>,
+    #[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
+    pub url: Option<Url>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

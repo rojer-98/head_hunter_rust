@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
+use url::Url;
 
-use crate::utils::RequestError;
+use crate::utils::{RequestError, serialize_url, deserialize_url};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ResumeStatus {
@@ -9,7 +10,12 @@ pub struct ResumeStatus {
     pub finished: Option<bool>,
     pub moderation_note: Option<Vec<StatusModerationNote>>,
     pub progress: Option<StatusProgress>,
-    pub publish_url: Option<String>,
+#[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
+    pub publish_url: Option<Url>,
     pub status: Option<ResumeStatusInner>,
     #[serde(flatten)]
     pub error: Option<RequestError>,

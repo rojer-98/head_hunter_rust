@@ -30,12 +30,24 @@ pub struct Vacancy {
     pub accept_kids: Option<bool>,
     pub accept_temporary: Option<bool>,
     pub address: Option<Address>,
-    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
+    #[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
     pub adv_response_url: Option<Url>,
     pub allow_messages: Option<bool>,
-    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
+    #[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
     pub alternate_url: Option<Url>,
-    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
+    #[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
     pub apply_alternate_url: Option<Url>,
     pub archived: bool,
     pub area: Area,
@@ -63,7 +75,11 @@ pub struct Vacancy {
     pub professional_roles: Vec<Option<IdAndName>>,
     pub published_at: DateTime<Utc>,
     pub response_letter_required: bool,
-    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
+    #[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
     pub response_url: Option<Url>,
     pub request_id: Option<String>,
     pub relations: Option<Vec<String>>,
@@ -112,21 +128,33 @@ pub struct KeySkill {
 #[serde(rename_all = "snake_case")]
 pub struct InsiderInterview {
     pub id: Option<String>,
-    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
+    #[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
     pub url: Option<Url>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub struct Employer {
-    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
+    #[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
     pub alternate_url: Option<Url>,
     pub blacklisted: Option<bool>,
     pub id: Option<String>,
     pub logo_urls: Option<LogoUrls>,
     pub name: Option<String>,
     pub trusted: bool,
-    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
+    #[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
     pub url: Option<Url>,
 }
 
@@ -178,9 +206,17 @@ pub struct MetroStation {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct VacancyErrorInner {
-    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
+    #[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
     pub captcha_url: Option<Url>,
-    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
+    #[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
     pub fallback_url: Option<Url>,
     #[serde(rename = "type")]
     pub error_type: String,
