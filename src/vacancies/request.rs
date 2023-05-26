@@ -74,7 +74,6 @@ pub async fn put_to_blacklisted_vacancies<T: Display>(
 pub async fn delete_from_blacklisted_vacancies<T: Display>(
     access_token: Option<String>,
     vacancy_id: T,
-    query: Option<DefaultQuery>,
 ) -> Result<RequestError, HError> {
     request_and_convert!(
         url: format!("https://api.hh.ru/vacancies/blacklisted/{vacancy_id}"),
