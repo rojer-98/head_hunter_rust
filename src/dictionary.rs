@@ -1,7 +1,10 @@
 use serde::{Deserialize, Serialize};
+use serde_url_params::to_string;
 use url::Url;
 
-use crate::utils::{deserialize_url, serialize_url};
+use derive::Query;
+
+use crate::utils::{deserialize_url, serialize_url, QueryHandler};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum Locales {
@@ -165,4 +168,10 @@ pub struct Industry {
 pub struct IdAndName {
     pub id: Option<String>,
     pub name: Option<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, Default, Query)]
+pub struct DefaultQuery {
+    pub locale: Option<Locales>,
+    pub host: Option<Hosts>,
 }

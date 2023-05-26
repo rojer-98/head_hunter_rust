@@ -1,9 +1,10 @@
 use std::fmt::Display;
 
 use crate::{
+    dictionary::DefaultQuery,
     request_and_convert,
     utils::{HError, QueryHandler, RequestError},
-    vacancies::{Vacancies, VacanciesQuery, Vacancy, VacancyQuery, Visitors, VisitorsQuery},
+    vacancies::{Vacancies, VacanciesQuery, Vacancy, Visitors, VisitorsQuery},
 };
 
 pub async fn get_all_vacancies(query: Option<VacanciesQuery>) -> Result<Vacancies, HError> {
@@ -18,7 +19,7 @@ pub async fn get_all_vacancies(query: Option<VacanciesQuery>) -> Result<Vacancie
 
 pub async fn get_vacancy_id<T: Display>(
     vacancy_id: T,
-    query: Option<VacancyQuery>,
+    query: Option<DefaultQuery>,
 ) -> Result<Vacancy, HError> {
     request_and_convert!(
         url: format!("https://api.hh.ru/vacancies/{vacancy_id}"),
@@ -45,7 +46,7 @@ pub async fn get_vacancy_id_visitors<T: Display>(
 
 pub async fn get_blacklisted_vacancies(
     access_token: Option<String>,
-    query: Option<VacancyQuery>,
+    query: Option<DefaultQuery>,
 ) -> Result<Vacancies, HError> {
     request_and_convert!(
         url: format!("https://api.hh.ru/vacancies/blacklisted"),
@@ -59,7 +60,7 @@ pub async fn get_blacklisted_vacancies(
 pub async fn put_to_blacklisted_vacancies<T: Display>(
     access_token: Option<String>,
     vacancy_id: T,
-    query: Option<VacancyQuery>,
+    query: Option<DefaultQuery>,
 ) -> Result<RequestError, HError> {
     request_and_convert!(
         url: format!("https://api.hh.ru/vacancies/blacklisted/{vacancy_id}"),
@@ -73,7 +74,6 @@ pub async fn put_to_blacklisted_vacancies<T: Display>(
 pub async fn delete_from_blacklisted_vacancies<T: Display>(
     access_token: Option<String>,
     vacancy_id: T,
-    query: Option<VacancyQuery>,
 ) -> Result<RequestError, HError> {
     request_and_convert!(
         url: format!("https://api.hh.ru/vacancies/blacklisted/{vacancy_id}"),
@@ -100,7 +100,7 @@ pub async fn get_all_favorited_vacancies(
 pub async fn put_to_favorited_vacancies<T: Display>(
     access_token: Option<String>,
     vacancy_id: T,
-    query: Option<VacancyQuery>,
+    query: Option<DefaultQuery>,
 ) -> Result<RequestError, HError> {
     request_and_convert!(
         url: format!("https://api.hh.ru/vacancies/favorited/{vacancy_id}"),
@@ -114,7 +114,7 @@ pub async fn put_to_favorited_vacancies<T: Display>(
 pub async fn delete_from_favorited_vacancies<T: Display>(
     access_token: Option<String>,
     vacancy_id: T,
-    query: Option<VacancyQuery>,
+    query: Option<DefaultQuery>,
 ) -> Result<RequestError, HError> {
     request_and_convert!(
         url: format!("https://api.hh.ru/vacancies/favorited/{vacancy_id}"),
