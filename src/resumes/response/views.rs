@@ -27,22 +27,38 @@ pub struct ResumeViewsItem {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Employer {
-    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
+    #[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
     pub alternate_url: Option<Url>,
     pub id: Option<String>,
     pub logo_urls: Option<LogoUrls>,
     pub name: Option<String>,
-    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
+    #[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
     pub url: Option<Url>,
     pub vacancies_url: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Resume {
-    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
+    #[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
     pub alternate_url: Option<Url>,
     pub id: Option<String>,
     pub title: Option<String>,
-    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
+    #[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
     pub url: Option<Url>,
 }

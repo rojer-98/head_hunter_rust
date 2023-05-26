@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
+use url::Url;
 
-use crate::utils::RequestError;
+use crate::utils::{deserialize_url, serialize_url, RequestError};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct EmployersRegionActive {
@@ -17,7 +18,12 @@ pub struct EmployersRegionActive {
 pub struct EmployersRegionActiveItem {
     pub id: Option<String>,
     pub name: Option<String>,
-    pub url: Option<String>,
+    #[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
+    pub url: Option<Url>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

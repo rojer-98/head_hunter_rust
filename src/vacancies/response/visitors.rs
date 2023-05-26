@@ -28,7 +28,11 @@ pub struct Visitors {
 pub struct VisitorsItem {
     pub actions: Actions,
     pub age: i64,
-    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
+    #[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
     pub alternate_url: Option<Url>,
     pub area: Area,
 
@@ -68,7 +72,11 @@ pub struct VisitorsItem {
     pub total_experience: TotalExperience,
 
     pub updated_at: String,
-    #[serde(deserialize_with = "deserialize_url", serialize_with = "serialize_url")]
+    #[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
     pub url: Option<Url>,
 
     pub viewed: bool,
@@ -76,7 +84,12 @@ pub struct VisitorsItem {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct NegotiationsHistory {
-    pub url: Option<String>,
+    #[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
+    pub url: Option<Url>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -89,12 +102,17 @@ pub struct Owner {
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub struct Comments {
-    pub counters: Counters,
-    pub url: String,
+    pub counters: Option<Counters>,
+    #[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
+    pub url: Option<Url>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub struct Counters {
-    pub total: i64,
+    pub total: Option<i64>,
 }
