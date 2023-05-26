@@ -4,10 +4,7 @@ use serde_url_params::to_string;
 
 use derive::Query;
 
-use crate::{
-    dictionary::{Hosts, Locales},
-    utils::{QueryHandler},
-};
+use crate::utils::QueryHandler;
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default, Query)]
 pub struct VacanciesQuery {
@@ -45,12 +42,6 @@ pub struct VacanciesQuery {
     pub part_time: Option<String>,
     pub locale: Option<String>,
     pub host: Option<String>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize, Default, Query)]
-pub struct VacancyQuery {
-    pub locale: Option<Locales>,
-    pub host: Option<Hosts>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default, Query)]
