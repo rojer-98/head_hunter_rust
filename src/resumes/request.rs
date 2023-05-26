@@ -2,7 +2,7 @@ use std::fmt::Display;
 
 use crate::{
     request_and_convert,
-    resumes::{ResumeMine, ResumeQuery, ResumeStatus, ResumeViews},
+    resumes::{ResumeMine, ResumeQuery, ResumeStatus, ResumeViews, VisibilityResumeQuery},
     utils::{HError, QueryHandler},
     vacancies::{Vacancies, VacanciesQuery},
 };
@@ -61,3 +61,20 @@ pub async fn get_similar_vacancy_by_resume_id<T: Display>(
         Vacancies
     )
 }
+
+/*
+pub async fn get_resume_visibility_list<T: Display>(
+    access_token: Option<String>,
+    resume_id: T,
+    list_type: T,
+    query: VisibilityResumeQuery,
+) -> Result<Vacancies, HError> {
+    request_and_convert!(
+        url: format!("https://api.hh.ru/resumes/{resume_id}/{list_type}/search"),
+        method: GET,
+        access_token: access_token,
+        query,
+        Vacancies
+    )
+}
+*/

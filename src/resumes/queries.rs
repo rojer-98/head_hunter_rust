@@ -13,3 +13,11 @@ pub struct ResumeQuery {
     pub locale: Option<Locales>,
     pub host: Option<Hosts>,
 }
+
+#[derive(Debug, Clone, Serialize, Deserialize, Query)]
+pub struct VisibilityResumeQuery {
+    pub text: String,
+    pub per_page: Option<u32>,
+    pub page: Option<Locales>,
+    pub host: Option<Hosts>,
+}
