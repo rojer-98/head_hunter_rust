@@ -26,9 +26,15 @@ pub fn serialize_url<S>(url: &Option<Url>, s: S) -> Result<S::Ok, S::Error>
 where
     S: Serializer,
 {
-    if let Some(u) = url {
+    trace!("Start serialize url");
+
+    let ret = if let Some(u) = url {
         s.serialize_str(u.as_str())
     } else {
         s.serialize_none()
-    }
+    };
+
+    trace!("End serialize url");
+
+    ret
 }
