@@ -52,3 +52,10 @@ pub struct EmployersBrandedTemplatesItem {
     pub name: Option<String>,
     pub version_id: Option<String>,
 }
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Employer {
+    pub id: Option<String>,
+    pub manager_id: Option<String>,
+    pub name: Option<String>,
+}
