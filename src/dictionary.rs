@@ -175,3 +175,28 @@ pub struct DefaultQuery {
     pub locale: Option<Locales>,
     pub host: Option<Hosts>,
 }
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Description {
+    pub max_length: Option<i64>,
+    pub min_length: Option<i64>,
+    pub required: Option<bool>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Type {
+    pub required: Option<bool>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct File {
+    pub max_size: Option<i64>,
+    pub mime_type: Option<Vec<String>>,
+    pub required: Option<bool>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Counters {
+    pub max: Option<i64>,
+    pub uploaded: Option<i64>,
+}

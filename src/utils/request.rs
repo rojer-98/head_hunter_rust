@@ -1,6 +1,10 @@
 use digest::DigestAuth;
 use log::{trace, warn};
-use reqwest::{redirect::Policy, Client};
+use reqwest::{
+    multipart::{Form, Part},
+    redirect::Policy,
+    Client,
+};
 
 use crate::HError;
 

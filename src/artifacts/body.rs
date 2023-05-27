@@ -6,6 +6,6 @@ use derive::Query;
 use crate::utils::QueryHandler;
 
 #[derive(Debug, Clone, Serialize, Deserialize, Query)]
-pub struct TemplateBody {
-    pub template: Option<String>,
+pub struct DescriptionBody {
+    pub description: String,
 }

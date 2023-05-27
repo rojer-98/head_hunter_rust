@@ -1,10 +1,9 @@
-use serde::{Deserialize, Serialize};
+mod conditions;
+mod photo;
+mod portfolio;
+mod success;
 
-use crate::utils::RequestError;
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct TemplateResponse {
-    pub template: Option<String>,
-    #[serde(flatten)]
-    pub error: Option<RequestError>,
-}
+pub use conditions::*;
+pub use photo::*;
+pub use portfolio::*;
+pub use success::*;
