@@ -4,7 +4,7 @@ use crate::{
     dictionary::DefaultQuery,
     employers::EmployerVisibility,
     request_and_convert,
-    resumes::{ResumeConditions, ResumeMine, ResumeStatus, ResumeViews, VisibilityResumeQuery},
+    resumes::{ResumeConditions, ResumeMine, ResumeStatus, ResumeViews},
     utils::{HError, QueryHandler},
     vacancies::{Vacancies, VacanciesQuery},
 };
