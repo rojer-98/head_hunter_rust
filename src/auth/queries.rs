@@ -69,3 +69,18 @@ impl TakeNewAuthQuery {
         }
     }
 }
+
+#[derive(Debug, Clone, Serialize, Deserialize, Query)]
+pub struct AuthorizeQuery {
+    pub response_type: String,
+    pub client_id: String,
+}
+
+impl AuthorizeQuery {
+    pub fn new(response_type: String, client_id: String) -> Self {
+        Self {
+            response_type,
+            client_id,
+        }
+    }
+}

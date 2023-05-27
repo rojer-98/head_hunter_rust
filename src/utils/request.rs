@@ -1,6 +1,6 @@
 use digest::DigestAuth;
-use log::warn;
-use reqwest::Client;
+use log::{trace, warn};
+use reqwest::{redirect::Policy, Client};
 
 use crate::HError;
 
@@ -161,9 +161,19 @@ async fn r_reqwest(
 ) -> Result<String, HError> {
     use Method::*;
 
-    let client = Client::new();
-    let params = params.unwrap_or_default();
+    trace!("Full url to req: {url}");
 
+    let client = Client::builder()
+        .redirect(Policy::custom(|attempt| {
+            if attempt.previous().len() > 30 {
+                attempt.error("too many redirects")
+            } else {
+                attempt.follow()
+            }
+        }))
+        .build()?;
+
+    let params = params.unwrap_or_default();
     let (username, password) = auth;
 
     let rb = match method {
