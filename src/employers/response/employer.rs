@@ -1,7 +1,10 @@
 use serde::{Deserialize, Serialize};
 use url::Url;
 
-use crate::utils::{deserialize_url, serialize_url, RequestError};
+use crate::{
+    dictionary::LogoUrls,
+    utils::{deserialize_url, serialize_url, RequestError},
+};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct EmployersRegionActive {
@@ -51,4 +54,40 @@ pub struct EmployersBrandedTemplatesItem {
     pub id: Option<String>,
     pub name: Option<String>,
     pub version_id: Option<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Employer {
+    pub id: Option<String>,
+    pub manager_id: Option<String>,
+    pub name: Option<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct EmployerVisibility {
+    pub found: Option<i64>,
+    pub items: Option<Vec<EmployerVisibilityItem>>,
+    pub page: Option<i64>,
+    pub pages: Option<i64>,
+    pub per_page: Option<i64>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct EmployerVisibilityItem {
+    #[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
+    pub alternate_url: Option<Url>,
+    pub id: Option<String>,
+    pub logo_urls: Option<LogoUrls>,
+    pub name: Option<String>,
+    pub selected: Option<bool>,
+    #[serde(
+        default,
+        deserialize_with = "deserialize_url",
+        serialize_with = "serialize_url"
+    )]
+    pub url: Option<Url>,
 }

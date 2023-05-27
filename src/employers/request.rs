@@ -3,10 +3,12 @@ use std::fmt::Display;
 use crate::{
     dictionary::DefaultQuery,
     employers::{
-        EmployersBrandedTemplates, EmployersDepartments, EmployersRegionActive, SavedSearchesQuery,
+        DeleteEmployerVisibilityListQuery, EmployerVisibility, EmployersBrandedTemplates,
+        EmployersDepartments, EmployersRegionActive, ResumeVisibilityIds, SavedSearchesQuery,
         SavedSearchesVacancies, SavedSearchesVacanciesItem, UpdateSavedSearchesQuery,
     },
     request_and_convert,
+    resumes::VisibilityResumeQuery,
     utils::{HError, QueryHandler, RequestError},
     vacancies::VacanciesQuery,
 };
@@ -117,6 +119,68 @@ pub async fn delete_saved_searches_vacancy<T: Display>(
         method: DELETE,
         access_token: access_token,
         optional query,
+        RequestError
+    )
+}
+
+pub async fn get_employers_visibility_list<T: Display>(
+    access_token: Option<String>,
+    resume_id: T,
+    list_type: T,
+    query: VisibilityResumeQuery,
+) -> Result<EmployerVisibility, HError> {
+    request_and_convert!(
+        url: format!("https://api.hh.ru/resumes/{resume_id}/{list_type}/search"),
+        method: GET,
+        access_token: access_token,
+        query,
+        EmployerVisibility
+    )
+}
+
+pub async fn post_employers_to_visibility_list<T: Display>(
+    access_token: Option<String>,
+    resume_id: T,
+    list_type: T,
+    query: Option<DefaultQuery>,
+    body: ResumeVisibilityIds,
+) -> Result<RequestError, HError> {
+    request_and_convert!(
+        url: format!("https://api.hh.ru/resumes/{resume_id}/{list_type}"),
+        method: POST,
+        access_token: access_token,
+        optional query,
+        RequestError,
+        body
+    )
+}
+
+pub async fn delete_visibility_list<T: Display>(
+    access_token: Option<String>,
+    resume_id: T,
+    list_type: T,
+    query: Option<DefaultQuery>,
+) -> Result<RequestError, HError> {
+    request_and_convert!(
+        url: format!("https://api.hh.ru/resumes/{resume_id}/{list_type}"),
+        method: DELETE,
+        access_token: access_token,
+        optional query,
+        RequestError
+    )
+}
+
+pub async fn delete_employer_from_visibility_list<T: Display>(
+    access_token: Option<String>,
+    resume_id: T,
+    list_type: T,
+    query: DeleteEmployerVisibilityListQuery,
+) -> Result<RequestError, HError> {
+    request_and_convert!(
+        url: format!("https://api.hh.ru/resumes/{resume_id}/{list_type}"),
+        method: DELETE,
+        access_token: access_token,
+        query,
         RequestError
     )
 }

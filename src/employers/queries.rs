@@ -23,3 +23,10 @@ pub struct UpdateSavedSearchesQuery {
     pub locale: Option<Locales>,
     pub host: Option<Hosts>,
 }
+
+#[derive(Debug, Clone, Serialize, Deserialize, Query)]
+pub struct DeleteEmployerVisibilityListQuery {
+    pub id: u32,
+    pub locale: Option<Locales>,
+    pub host: Option<Hosts>,
+}

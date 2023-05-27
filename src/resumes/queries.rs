@@ -14,4 +14,5 @@ pub struct VisibilityResumeQuery {
     pub per_page: Option<u32>,
     pub page: Option<Locales>,
     pub host: Option<Hosts>,
+    pub locale: Option<Locales>,
 }
