@@ -54,6 +54,8 @@ pub enum HError {
 pub struct RequestError {
     pub request_id: Option<String>,
     pub description: Option<String>,
+    pub bad_argument: Option<String>,
+    pub bad_arguments: Option<Vec<BadArgument>>,
     pub errors: Option<Vec<RequestErrorInner>>,
     pub oauth_error: Option<String>,
 }
@@ -85,4 +87,10 @@ impl Display for RequestErrorInner {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{:?}: {:?}", self.error_type, self.value)
     }
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct BadArgument {
+    pub description: Option<String>,
+    pub name: Option<String>,
 }
