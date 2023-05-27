@@ -2,8 +2,9 @@ use std::fmt::Display;
 
 use crate::{
     dictionary::DefaultQuery,
+    employers::EmployerVisibility,
     request_and_convert,
-    resumes::{ResumeMine, ResumeStatus, ResumeViews, VisibilityResumeQuery},
+    resumes::{ResumeConditions, ResumeMine, ResumeStatus, ResumeViews, VisibilityResumeQuery},
     utils::{HError, QueryHandler},
     vacancies::{Vacancies, VacanciesQuery},
 };
@@ -63,20 +64,44 @@ pub async fn get_similar_vacancy_by_resume_id<T: Display>(
     )
 }
 
-/*
+pub async fn get_new_resume_conditions(
+    access_token: Option<String>,
+    query: Option<DefaultQuery>,
+) -> Result<ResumeConditions, HError> {
+    request_and_convert!(
+        url: format!("https://api.hh.ru/resume_conditions"),
+        method: GET,
+        access_token: access_token,
+        optional query,
+        ResumeConditions
+    )
+}
+
+pub async fn get_resume_conditions<T: Display>(
+    access_token: Option<String>,
+    resume_id: T,
+    query: Option<DefaultQuery>,
+) -> Result<ResumeConditions, HError> {
+    request_and_convert!(
+        url: format!("https://api.hh.ru/resumes/{resume_id}/conditions"),
+        method: GET,
+        access_token: access_token,
+        optional query,
+        ResumeConditions
+    )
+}
+
 pub async fn get_resume_visibility_list<T: Display>(
     access_token: Option<String>,
     resume_id: T,
     list_type: T,
-    query: VisibilityDefaultQuery,
-) -> Result<Vacancies, HError> {
+    query: Option<DefaultQuery>,
+) -> Result<EmployerVisibility, HError> {
     request_and_convert!(
-        url: format!("https://api.hh.ru/resumes/{resume_id}/{list_type}/search"),
+        url: format!("https://api.hh.ru/resumes/{resume_id}/{list_type}"),
         method: GET,
         access_token: access_token,
-        query,
-        Vacancies
+        optional query,
+        EmployerVisibility
     )
 }
-*/
-

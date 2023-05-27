@@ -50,6 +50,14 @@ pub enum HError {
     AuthTokenConvert,
 }
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub enum OauthError {
+    #[serde(rename = "token-revoked")]
+    TokenRevoked,
+    #[serde(rename = "token-expired")]
+    TokenExpired,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize, Error)]
 pub struct RequestError {
     pub request_id: Option<String>,

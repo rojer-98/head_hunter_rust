@@ -1,5 +1,3 @@
-use std::fmt::Display;
-
 use crate::{
     dictionary::DefaultQuery,
     request_and_convert,
