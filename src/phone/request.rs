@@ -7,7 +7,7 @@ use crate::{
     utils::{HError, QueryHandler, RequestError},
 };
 
-pub async fn resume_phone_confirm(
+pub async fn post_resume_phone_confirm(
     access_token: Option<String>,
     query: PhoneConfirmQuery,
     body: ResumePhoneConfirmBody,
@@ -22,7 +22,7 @@ pub async fn resume_phone_confirm(
     )
 }
 
-pub async fn resume_should_send_sms(
+pub async fn get_resume_should_send_sms(
     access_token: Option<String>,
     query: ResumeShouldSendSMSQuery,
 ) -> Result<ResumePhone, HError> {
@@ -35,7 +35,7 @@ pub async fn resume_should_send_sms(
     )
 }
 
-pub async fn resume_phone_generate_code(
+pub async fn post_resume_phone_generate_code(
     access_token: Option<String>,
     query: PhoneConfirmQuery,
     body: ResumePhoneGenerateCodeBody,
