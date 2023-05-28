@@ -1,0 +1,34 @@
+[package]
+name = "hh_rust"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "hh_rust"
+path = "src/lib.rs"
+
+[dependencies]
+serde = { version = "1.0.163", features = ["derive"] }
+serde_url_params = "0.2.1"
+serde_json = "1.0.96"
+
+reqwest = { version =  "0.11.17", features = ["multipart"] } 
+digest = { git  = "https://github.com/rojer-98/digest.git" }
+url = "2.3.1"
+thirtyfour = "*"
+
+tokio = { version = "1.28.1", features = ["full"] }
+async-trait = "0.1.68"
+futures = "0.3.28"
+
+chrono = { version = "0.4.24", features = ["serde"] }
+thiserror = "*"
+regex = "1.8.1"
+log = "*"
+
+derive = { path = "./derive" }
+
+[dev-dependencies]
+simple_logger = "4.1.0"
